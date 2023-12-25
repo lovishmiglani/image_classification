@@ -40,40 +40,6 @@ background-size: cover;
 </style>
 '''
 st.markdown(side_bar_bg_img, unsafe_allow_html=True)
-
-# Content text contrast 
-text_color = '''
-<style>
-.stApp {
-color: white;
-}
-</style>
-'''
-st.markdown(text_color, unsafe_allow_html=True)
-
-# App content padding
-padding = 0
-st.markdown(f'''<style>
-    .reportview-container .main .block-container{{
-        padding-top: {padding}rem;
-        padding-right: {padding}rem; 
-        padding-left: {padding}rem;
-        padding-bottom: {padding}rem;
-        font-size: 20px;
-
-    }} </style>''', unsafe_allow_html=True)
-# now lest add some Custom CSS to make sidebar menu and improve styling 
-st.markdown('<style>#MainMenu {visibility: hidden;} footer {visibility: hidden;}</style>', unsafe_allow_html=True)
-
-padding = 100
-st.markdown(f'''<style>
-    .reportview-container .main .block-container{{
-        padding-top: {padding}rem;
-        padding-right: {padding}rem;
-        padding-left: {padding}rem;
-        padding-bottom: {padding}rem;
-    }} </style>''', unsafe_allow_html=True)
-
 # Sidebar menu
 with st.sidebar:
     choose = option_menu("Main Menu", ["Home", "Image Classification", "About Project"], 
@@ -102,6 +68,14 @@ page_title_style = f"""
                     0 5px 10px rgba(0,0,0,.25),
                     0 10px 10px rgba(0,0,0,.2), 
                      0 20px 20px rgba(0,0,0,.15);
+        opacity: 0;
+        animation: fadeIn 2s forwards;
+        }}
+        
+        @keyframes fadeIn {{
+            to {{
+                opacity: 1;
+            }}
         }}
     </style>
 """
@@ -114,6 +88,14 @@ page_home_style = f"""
         color: #ffe495;
         font-family: 'Georgia', sans-serif;
         text-align: center;
+        opacity: 0;
+        animation: fadeIn 2s forwards;
+        }}
+        
+        @keyframes fadeIn {{
+            to {{
+                opacity: 1;
+            }}
         }}
     </style>
 """
@@ -151,7 +133,7 @@ if choose == "Home":
 
 # Image classification page  
 elif choose == "Image Classification":
-    st.header("Classify Images")
+    st.header("Drop Your Image")
     upload_file = st.file_uploader("Choose an image...", type=["jpg", "png", "webl"])
     uploader_style = """
     <style>
@@ -218,7 +200,8 @@ elif choose == "Image Classification":
         cv2.putText(orig, "Label: {}: {:.2f}%".format(Label, prob * 100),
                  (5, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 250, 0), 1)
         orig_rgb = cv2.cvtColor(orig, cv2.COLOR_BGR2RGB)
-        st.image(orig_rgb, caption = "Classification", use_column_width = True)
+        st.image(orig_rgb,use_column_width = True)
+        st.header("Classification")
         #st.image(orig_rgb, caption = "Classification", use_column_width = True)
     if upload_file is not None:
         classify_image(upload_file)
