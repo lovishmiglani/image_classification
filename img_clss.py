@@ -156,7 +156,7 @@ elif choose == "Image Classification":
     uploader_style = """
     <style>
     div[data-testid="stFileUploader"] {
-        background-image: linear-gradient(to bottom, #f1b7cd, #90dbb4); 
+        background-image: linear-gradient(to bottom, #185664cf, #90dbb4); 
         border-radius: 5px;
         box-shadow: 2px 2px 4px #888; 
         padding: 8px;
